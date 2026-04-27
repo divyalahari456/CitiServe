@@ -1,0 +1,478 @@
+/* ============================================================
+   CitiServe Design System — Premium Government-Tech SaaS UI
+   Palette: Indian Flag (Saffron, White, Green) — subtle & elegant
+   Style: Neumorphism (Soft UI) + Glassmorphism accents
+   ============================================================ */
+
+@import "tailwindcss";
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ── Tailwind Theme Tokens ────────────────────────────────── */
+@theme {
+  /* Indian Flag Palette */
+  --color-saffron:      #FF9933;
+  --color-saffron-dark: #e8841a;
+  --color-india-green:  #138808;
+  --color-india-green-dark: #0f6b06;
+  --color-navy-blue:    #000080;  /* Ashoka Chakra reference */
+
+  /* Backgrounds */
+  --color-neutral-bg:   #F5F7FA;
+  --color-surface:      #FFFFFF;
+  --color-surface-alt:  #F0F2F5;
+
+  /* Text */
+  --color-text-primary:   #1A202C;
+  --color-text-secondary: #4A5568;
+  --color-text-muted:     #A0AEC0;
+
+  /* Typography */
+  --font-inter:   "Inter", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+
+  /* Neumorphic Shadows */
+  --shadow-neu-flat:    5px 5px 15px rgba(0,0,0,0.07), -5px -5px 15px rgba(255,255,255,0.85);
+  --shadow-neu-pressed: inset 3px 3px 8px rgba(0,0,0,0.08), inset -3px -3px 8px rgba(255,255,255,0.7);
+  --shadow-neu-hover:   8px 8px 20px rgba(0,0,0,0.09), -8px -8px 20px rgba(255,255,255,0.9);
+  --shadow-neu-card:    6px 6px 18px rgba(0,0,0,0.07), -6px -6px 18px rgba(255,255,255,0.85);
+
+  /* Standard Shadows */
+  --shadow-soft:  0 4px 20px -5px rgba(0,0,0,0.06);
+  --shadow-card:  0 10px 30px -10px rgba(0,0,0,0.09);
+  --shadow-glow-saffron: 0 4px 20px rgba(255,153,51,0.25);
+  --shadow-glow-green:   0 4px 20px rgba(19,136,8,0.20);
+
+  /* Border Radius */
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+
+  /* Transitions */
+  --transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Global Reset & Base ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-neutral-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-inter);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* ── Typography Hierarchy ────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins);
+  font-weight: 600;         /* Semi-bold — NOT bold */
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.0625rem; }
+
+p, li, span, div {
+  font-weight: 400;
+  font-family: var(--font-inter);
+}
+
+label {
+  font-weight: 500;
+  font-family: var(--font-inter);
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+strong, b { font-weight: 600; }
+
+/* ── Neumorphic Core Classes ─────────────────────────────── */
+
+/* Standard neumorphic surface (for cards, panels) */
+.neu-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-neu-card);
+  border: 1px solid rgba(255,255,255,0.9);
+  transition: var(--transition-base);
+}
+
+.neu-card:hover {
+  box-shadow: var(--shadow-neu-hover);
+  transform: translateY(-2px);
+}
+
+/* Neumorphic card on the neutral background */
+.neu-surface {
+  background: var(--color-neutral-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-neu-flat);
+  border: 1px solid rgba(255,255,255,0.7);
+  transition: var(--transition-base);
+}
+
+.neu-surface:hover {
+  box-shadow: var(--shadow-neu-hover);
+}
+
+/* Pressed/inset neumorphic (for active states) */
+.neu-pressed {
+  background: var(--color-neutral-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-neu-pressed);
+}
+
+/* ── Neumorphic Input Fields ─────────────────────────────── */
+.neu-input-wrap {
+  position: relative;
+}
+
+.neu-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--color-neutral-bg);
+  border: 1.5px solid rgba(255,255,255,0.8);
+  border-radius: var(--radius-md);
+  box-shadow: inset 3px 3px 7px rgba(0,0,0,0.07),
+              inset -3px -3px 7px rgba(255,255,255,0.8);
+  font-size: 0.9375rem;
+  font-family: var(--font-inter);
+  font-weight: 400;
+  color: var(--color-text-primary);
+  outline: none;
+  transition: var(--transition-base);
+  appearance: none;
+}
+
+.neu-input::placeholder { color: var(--color-text-muted); }
+
+.neu-input:focus {
+  border-color: rgba(255,153,51,0.5);
+  box-shadow: inset 3px 3px 7px rgba(0,0,0,0.07),
+              inset -3px -3px 7px rgba(255,255,255,0.8),
+              0 0 0 3px rgba(255,153,51,0.12);
+}
+
+/* Neumorphic input with icon padding */
+.neu-input-icon { padding-left: 48px; }
+
+/* ── Floating Labels ─────────────────────────────────────── */
+.float-group {
+  position: relative;
+}
+
+.float-input {
+  width: 100%;
+  padding: 20px 18px 8px 18px;
+  background: var(--color-neutral-bg);
+  border: 1.5px solid rgba(255,255,255,0.8);
+  border-radius: var(--radius-md);
+  box-shadow: inset 3px 3px 7px rgba(0,0,0,0.07),
+              inset -3px -3px 7px rgba(255,255,255,0.8);
+  font-size: 0.9375rem;
+  font-family: var(--font-inter);
+  font-weight: 400;
+  color: var(--color-text-primary);
+  outline: none;
+  transition: var(--transition-base);
+}
+
+.float-input::placeholder { color: transparent; }
+
+.float-input:focus {
+  border-color: rgba(255,153,51,0.45);
+  box-shadow: inset 3px 3px 7px rgba(0,0,0,0.07),
+              inset -3px -3px 7px rgba(255,255,255,0.8),
+              0 0 0 3px rgba(255,153,51,0.10);
+}
+
+.float-label {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: var(--transition-base);
+  white-space: nowrap;
+}
+
+.float-input:focus + .float-label,
+.float-input:not(:placeholder-shown) + .float-label {
+  top: 10px;
+  transform: translateY(0);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #FF9933;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Float input with icon */
+.float-input-icon { padding-left: 48px; }
+.float-label-icon { left: 48px; }
+
+/* ── Neumorphic Buttons ───────────────────────────────────── */
+.neu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  background: var(--color-neutral-bg);
+  box-shadow: var(--shadow-neu-flat);
+  border: 1px solid rgba(255,255,255,0.75);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: var(--font-inter);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: var(--transition-base);
+  outline: none;
+  text-decoration: none;
+}
+
+.neu-btn:hover {
+  box-shadow: var(--shadow-neu-hover);
+  transform: translateY(-1px);
+}
+
+.neu-btn:active {
+  box-shadow: var(--shadow-neu-pressed);
+  transform: translateY(0);
+}
+
+/* Gradient CTA Button */
+.btn-saffron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #FF9933 0%, #e8841a 100%);
+  box-shadow: 0 4px 16px rgba(255,153,51,0.30), var(--shadow-neu-flat);
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-inter);
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: var(--transition-base);
+  outline: none;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.btn-saffron:hover {
+  background: linear-gradient(135deg, #e8841a 0%, #d4750f 100%);
+  box-shadow: 0 6px 24px rgba(255,153,51,0.40), var(--shadow-neu-hover);
+  transform: translateY(-2px);
+}
+
+.btn-saffron:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255,153,51,0.20);
+}
+
+.btn-saffron:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Dark CTA button */
+.btn-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: var(--radius-md);
+  background: #1A202C;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-inter);
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: var(--transition-base);
+  outline: none;
+  text-decoration: none;
+}
+
+.btn-dark:hover {
+  background: #0f1319;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+  transform: translateY(-1px);
+}
+
+/* ── India Gradient (Login left panel) ───────────────────── */
+.india-panel-gradient {
+  background: linear-gradient(
+    180deg,
+    #FF9933 0%,
+    rgba(255,153,51,0.55) 18%,
+    rgba(255,255,255,0.92) 44%,
+    rgba(255,255,255,0.90) 56%,
+    rgba(19,136,8,0.45) 82%,
+    #138808 100%
+  );
+}
+
+/* ── Ashoka Chakra Watermark ─────────────────────────────── */
+@keyframes chakra-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.ashoka-watermark {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 260px;
+  height: 260px;
+  opacity: 0.06;
+  animation: chakra-spin 90s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Glassmorphism ───────────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: var(--radius-xl);
+}
+
+.glass-card {
+  background: rgba(255,255,255,0.30);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.50);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+/* ── Page Section Accent Bar ─────────────────────────────── */
+.page-accent-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.page-accent-line {
+  width: 4px;
+  height: 36px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+/* ── Status Badges ───────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── Tricolor Divider ────────────────────────────────────── */
+.tricolor-bar {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.tricolor-bar span {
+  height: 3px;
+  width: 32px;
+  border-radius: 99px;
+  display: block;
+}
+
+/* ── Scrollbar Styling ───────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.10);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.18); }
+
+/* ── Focus Accessible ────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(255,153,51,0.6);
+  outline-offset: 2px;
+}
+
+/* ── Utility: No Scrollbar ───────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Animation Helpers ───────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes float {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-fade-up  { animation: fade-up 0.55s cubic-bezier(0.4,0,0.2,1) both; }
+.animate-fade-in  { animation: fade-in 0.4s ease both; }
+.animate-float    { animation: float 3s ease-in-out infinite; }
+.anim-delay-100   { animation-delay: 0.1s; }
+.anim-delay-200   { animation-delay: 0.2s; }
+.anim-delay-300   { animation-delay: 0.3s; }
+.anim-delay-400   { animation-delay: 0.4s; }
+
+/* ── Legacy Compat (modern-card) ─────────────────────────── */
+.modern-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-neu-card);
+  border: 1px solid rgba(255,255,255,0.9);
+  transition: var(--transition-base);
+}
+
+.modern-card:hover {
+  box-shadow: var(--shadow-neu-hover);
+  transform: translateY(-3px);
+}

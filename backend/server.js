@@ -21,6 +21,7 @@ const complaintRoutes = require('./routes/complaintRoutes');
 const lawRoutes = require('./routes/lawRoutes');
 const schemeRoutes = require('./routes/schemeRoutes');
 const translateRoutes = require('./routes/translateRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 
 // Load environment variables
 dotenv.config();
@@ -70,6 +71,7 @@ app.use('/api/complaints', complaintRoutes);
 app.use('/api/laws', lawRoutes);
 app.use('/api/schemes', schemeRoutes);
 app.use('/api/translate', translateRoutes);
+app.use('/api/chat', chatRoutes);
 
 // ─── HEALTH CHECK ───────────────────────────────────────
 app.get('/', (req, res) => {

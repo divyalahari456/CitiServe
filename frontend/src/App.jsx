@@ -12,8 +12,13 @@ import Laws from './pages/Laws';
 import Schemes from './pages/Schemes';
 import ComplaintForm from './pages/ComplaintForm';
 import ComplaintTracking from './pages/ComplaintTracking';
+import MyComplaints from './pages/MyComplaints';
 import Profile from './pages/Profile';
 import AdminPanel from './pages/AdminPanel';
+import ManageComplaints from './admin/ManageComplaints';
+import ManageUsers from './admin/ManageUsers';
+import ManageLaws from './admin/ManageLaws';
+import ManageSettings from './admin/ManageSettings';
 
 function App() {
   const { user, loading } = useAuth();
@@ -93,8 +98,14 @@ function App() {
               <Route path="/schemes" element={<Schemes />} />
               <Route path="/complaint-form" element={<ComplaintForm />} />
               <Route path="/complaint-tracking" element={<ComplaintTracking />} />
+              <Route path="/my-complaints" element={<MyComplaints />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/admin" element={currentRole === 'admin' ? <AdminPanel /> : <Navigate to="/" />} />
+              <Route path="/admin/*" element={currentRole === 'admin' ? <AdminPanel /> : <Navigate to="/" />}>
+                <Route path="complaints" element={<ManageComplaints />} />
+                <Route path="users" element={<ManageUsers />} />
+                <Route path="laws" element={<ManageLaws />} />
+                <Route path="settings" element={<ManageSettings />} />
+              </Route>
             </Routes>
           </div>
         </main>

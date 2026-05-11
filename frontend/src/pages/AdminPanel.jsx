@@ -28,8 +28,10 @@ const AdminPanel = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const usersRes = await axios.get('http://localhost:5000/api/admin/users', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }});
-        const compRes = await axios.get('http://localhost:5000/api/admin/complaints', { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }});
+        const userStr = localStorage.getItem('citiserve_user');
+        const token = userStr ? JSON.parse(userStr).token : null;
+        const usersRes = await axios.get('http://localhost:5000/api/admin/users', { headers: { Authorization: `Bearer ${token}` }});
+        const compRes = await axios.get('http://localhost:5000/api/admin/complaints', { headers: { Authorization: `Bearer ${token}` }});
         
         const complaints = compRes.data.data || [];
         setStats({

@@ -19,14 +19,10 @@ const complaintSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Pre-save hook to generate unique complaint ID
-complaintSchema.pre('save', function(next) {
+complaintSchema.pre("save", async function () {
   if (!this.complaintId) {
-    // Generate an ID like: CITI-2026-A8B9C
-    const year = new Date().getFullYear();
-    const randomStr = Math.random().toString(36).substring(2, 7).toUpperCase();
-    this.complaintId = `CITI-${year}-${randomStr}`;
+    this.complaintId = `CS-${Date.now()}`;
   }
-  next();
 });
 
 module.exports = mongoose.model('Complaint', complaintSchema);

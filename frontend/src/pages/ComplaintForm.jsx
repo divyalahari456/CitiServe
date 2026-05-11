@@ -72,7 +72,12 @@ const ComplaintForm = () => {
     if (proofFile) submitData.append('proofFile', proofFile);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/complaints', submitData, { headers: { 'Content-Type': 'multipart/form-data' }});
+      const userStr = localStorage.getItem('citiserve_user');
+      const token = userStr ? JSON.parse(userStr).token : null;
+      const headers = { 'Content-Type': 'multipart/form-data' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
+      const response = await axios.post('http://localhost:5000/api/complaints', submitData, { headers });
       if (response.data.success) {
         setSubmittedData(response.data.data);
         toast.success('Complaint submitted successfully!');
@@ -123,7 +128,7 @@ const ComplaintForm = () => {
             <button onClick={() => { setSubmittedData(null); setFormData({ category: '', title: '', description: '', state: '', city: '', priority: 'Medium' }); setProofFile(null); }} style={{ flex: 1, padding: '16px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '14px', fontSize: '0.8125rem', fontWeight: 600, color: '#4A5568', textTransform: 'uppercase', letterSpacing: '0.06em', cursor: 'pointer', transition: 'all 0.2s', boxShadow: '0 2px 6px rgba(0,0,0,0.02)' }} onMouseEnter={e => e.currentTarget.style.background = '#F5F7FA'} onMouseLeave={e => e.currentTarget.style.background = '#FFFFFF'}>
               File Another
             </button>
-            <button className="btn-dark" style={{ flex: 1, padding: '16px', borderRadius: '14px', fontSize: '0.8125rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <button className="btn-dark" onClick={() => window.location.href = '/complaint-tracking'} style={{ flex: 1, padding: '16px', borderRadius: '14px', fontSize: '0.8125rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Track Status
             </button>
           </div>

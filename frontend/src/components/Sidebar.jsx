@@ -11,6 +11,7 @@ const Sidebar = ({ role = 'citizen' }) => {
     { name: 'Govt Schemes',    path: '/schemes',             icon: <FileText className="w-[18px] h-[18px]" /> },
     { name: 'File Complaint',  path: '/complaint-form',      icon: <AlertTriangle className="w-[18px] h-[18px]" /> },
     { name: 'Track Status',    path: '/complaint-tracking',  icon: <Activity className="w-[18px] h-[18px]" /> },
+    { name: 'My Complaints',   path: '/my-complaints',       icon: <FileText className="w-[18px] h-[18px]" /> },
     { name: 'Profile',         path: '/profile',             icon: <User className="w-[18px] h-[18px]" /> },
   ];
 

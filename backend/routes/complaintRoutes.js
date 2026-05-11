@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const { registerComplaint, getComplaintById } = require('../controllers/complaintController');
+const { registerComplaint, getComplaintById, getUserComplaints } = require('../controllers/complaintController');
+const { protect } = require('../middleware/authMiddleware');
 
 // Multer storage configuration
 const storage = multer.diskStorage({
@@ -21,6 +22,7 @@ const upload = multer({
 });
 
 router.post('/', upload.single('proofFile'), registerComplaint);
+router.get('/my-complaints', protect, getUserComplaints);
 router.get('/:complaintId', getComplaintById);
 
 module.exports = router;

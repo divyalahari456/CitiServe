@@ -1,4 +1,5 @@
 const Complaint = require('../models/Complaint');
+const jwt = require('jsonwebtoken');
 
 // @desc    Register a new complaint
 // @route   POST /api/complaints
@@ -13,8 +14,19 @@ const registerComplaint = async (req, res) => {
       proofUrl = `/uploads/${req.file.filename}`;
     }
 
-    // In a real app, you would associate req.user.id if logged in
+    let userId = undefined;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+      try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        userId = decoded.id;
+      } catch (err) {
+        console.error('Invalid token in complaint registration:', err.message);
+      }
+    }
+
     const complaint = new Complaint({
+      user: userId,
       category,
       title,
       description,
@@ -59,7 +71,21 @@ const getComplaintById = async (req, res) => {
   }
 };
 
+// @desc    Get logged in user's complaints
+// @route   GET /api/complaints/my-complaints
+// @access  Private
+const getUserComplaints = async (req, res) => {
+  try {
+    const complaints = await Complaint.find({ user: req.user._id }).sort({ createdAt: -1 });
+    res.status(200).json({ success: true, data: complaints });
+  } catch (error) {
+    console.error('Error fetching user complaints:', error);
+    res.status(500).json({ success: false, message: 'Server Error' });
+  }
+};
+
 module.exports = {
   registerComplaint,
   getComplaintById,
+  getUserComplaints,
 };
